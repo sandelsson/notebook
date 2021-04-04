@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+    <topic name="Animal Things">
+        <note name="Dogs are better than cats 03">
+            <text>
+            Dogs respond when you call their name (unlike cats, who just ignore you)
+            </text>
+            <timestamp>
+            03/16/21 - 14:03:04
+            </timestamp>
+        </note>
+    <note name="moi"><text>mitä kuuluuu</text><timestamp>04/04/2021 - 19:52:43</timestamp></note></topic>
+<topic name="test1"><note name="for the video"><text>hello</text><timestamp>04/04/2021 - 20:32:31</timestamp></note><note name="hello2"><text>hello</text><timestamp>04/04/2021 - 20:33:08</timestamp></note></topic><topic name="testi"><note name="for the video"><text>hello</text><timestamp>04/04/2021 - 20:37:53</timestamp></note><note name="testi2"><text>hi</text><timestamp>04/04/2021 - 20:38:26</timestamp></note></topic><topic name="moi"><note name="perkele"><text>vittu</text><timestamp>04/04/2021 - 21:12:09</timestamp></note><note name="vittu"><text>perkele</text><timestamp>04/04/2021 - 21:12:27</timestamp></note></topic></data>
