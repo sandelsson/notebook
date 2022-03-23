@@ -8,18 +8,16 @@
 
 
 from xmlrpc.server import SimpleXMLRPCServer
-from datetime import date, datetime
-import xml.etree.ElementTree as ET
-import os
 import threading
+import xml.etree.ElementTree as ET
+from datetime import date, datetime
 
-#Defining xml database tree and root for data fetching
+
+#Defining xml database tree and root for data fetching/appending + defining the server
 
 tree = ET.parse('db.xml')
 root = tree.getroot()
-
-# Defining the server
-server = SimpleXMLRPCServer(('127.0.0.1', 5000), logRequests=True, allow_none=True)
+server = SimpleXMLRPCServer(('127.0.0.1', 4000), logRequests=True, allow_none=True)
 
 #function to get the time for the server log
 def get_time():
@@ -32,7 +30,7 @@ def get_time():
 #searches for topics in xml file and returns them to the client
 
 def get_topics():
-    print("Fetching topics from xml file...\t\t\t{}".format(get_time()))
+    print("Fetching...\t\t\t{}".format(get_time()))
     return_topics = [] 
     topics = tree.findall('topic')
     for t in topics:
@@ -65,34 +63,32 @@ def find_topic(topic):
         return return_topics
  
 
-# Creating a new note
-# if the topic already exists, append the existing topic
-# if not --> create a new entry
-# source: https://stackabuse.com/reading-and-writing-xml-files-in-python/
 
+# source: https://stackabuse.com/reading-and-writing-xml-files-in-python/
+# https://stackoverflow.com/questions/31631525/python-elementtree-xml-append
 
 def create_topic(note):
     try:
         for a in tree.findall('topic'):
             if a.attrib.get('name') == note[0]: # if the note topic already exists --> append 
-                print("Appending to already existing topic...\t\t\t{}".format(get_time))
+                print("Appending to already existing topic...\t\t\t\t\t\t\t\t{}".format(get_time))
                 new_note = ET.SubElement(a,'note', name=note[1])
                 ET.SubElement(new_note, 'text').text = note[2]
                 ET.SubElement(new_note, 'timestamp').text = note[3]
                 tree.write('db.xml', encoding='UTF-8', xml_declaration=True)
-                print("Topic appended \t\t\t{}".format(get_time()))
+                print("Topic appended \t\t\t\t\t\t\t\t{}".format(get_time()))
                 return
 
-        print("Creating new topic..\t\t\t {}".format(get_time()))
+        print("Creating new topic..\t\t\t\t\t\t\t\t {}".format(get_time()))
         new_topic = ET.SubElement(root,'topic', name=note[0])
         new_note = ET.SubElement(new_topic,'note', name=note[1])
         ET.SubElement(new_note, 'text').text = note[2]
         ET.SubElement(new_note, 'timestamp').text = note[3]
         tree.write('db.xml', encoding='UTF-8', xml_declaration=True)
-        print("Created new topic. \t\t\t {}".format(get_time()))
+        print("Created new topic. \t\t\t\t\t\t\t\t {}".format(get_time()))
         return True
     except:
-        print("Error creating the note.\t\t\t {}".format(get_time()))
+        print("Error creating the note.\t\t\t\t\t\t\t\t {}".format(get_time()))
         return False
 
 
@@ -105,12 +101,11 @@ server.register_function(create_topic)
 
 
 # this basically enables multiple simultanous user requests
-# not my code, but couldn't find the source afterwards
 
 if __name__ == '__main__':
     try:
-        print('Server started\t\t\t{}'.format(get_time()))
+        print('Server started\t\t\t\t\t\t\t\t{}'.format(get_time()))
         server_thread = threading.Thread(target=server.serve_forever)
         server_thread.start()
     except KeyboardInterrupt:
-        print('Quitting server\t\t\t {}'.format(get_time()))
+        print('Quitting server\t\t\t\t\t\t\t\t {}'.format(get_time()))
