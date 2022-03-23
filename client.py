@@ -15,30 +15,9 @@ from datetime import date, datetime
 
 # Defining the server address
 
-proxy = ServerProxy('http://localhost:5000')
+proxy = ServerProxy('http://localhost:4000')
 
-
-
-# Basic menu for making it easy for the client to navigate
-def menu():
-    print("\n1 - Create a note\n2 - List note topics\n3 - Fetch topic\n0 - Quit")
-    try:
-        choice = int(input())
-        if (choice == 1):
-            create_note()
-        elif (choice == 2):
-            list_topics()
-        elif (choice == 3):
-            find_topic()
-        elif (choice == 0):
-            print("Client closing...")
-            exit(0)
-        else:
-            print("Invalid choise, try again!")
-    except ValueError:
-        print("Please input an integer between 0 and 3.")
-
-
+# When the program starts menu -function starts running immidiately.
 
 #time for the timestamps in notes
 
@@ -111,9 +90,22 @@ def list_topics():
 
 
 
-# When the program starts menu -function starts running immidiately.
-
 if __name__ == '__main__':
     print("NOTEBOOK")
     while(True):
-        menu()
+        print("\n1)Create a note\n2)Fetch all the topics\n3)Fetch topic\n0)Quit")
+        try:
+            choice = int(input())
+            if (choice == 1):
+                create_note()
+            elif (choice == 2):
+                list_topics()
+            elif (choice == 3):
+                find_topic()
+            elif (choice == 0):
+                print("Client closing...")
+                exit(0)
+            else:
+                print("Invalid choise, try again!")
+        except ValueError:
+            print("Please input an integer between 0 and 3.")
